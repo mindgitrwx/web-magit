@@ -32,3 +32,16 @@
   (interactive)
   (browse-url (concat (my-get-github-repo-url) "/blob/master/" ( file-name-nondirectory(buffer-file-name) ))))
 
+(defun my-create-github-repo (repo-name &optional username token)
+  "Create a new repository on GitHub with the given REPO-NAME.
+
+Optionally, specify a USERNAME and TOKEN to use for authentication. If not
+provided, the user will be prompted to enter them."
+  (interactive "sRepository name: ")
+  (unless username
+    (setq username (read-string "GitHub username: ")))
+  (unless token
+    (setq token (read-passwd "GitHub personal access token: ")))
+  (let ((url (format "https://api.github.com/user/repos -u %s:%s" username token)))
+    (call-process-shell-command (format "curl -d '{\"name\":\"%s\"}' %s" repo-name url))))
+
