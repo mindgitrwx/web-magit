@@ -25,10 +25,6 @@
   (interactive)
   (browse-url (concat (my-get-github-repo-url) "/actions")))
 
-(defun my-open-github-repo-actions ()
-  (interactive)
-  (browse-url (concat (my-get-github-repo-url) "/actions")))
-
 (defun my-open-github-repo-file ()
   (interactive)
   (browse-url (concat (my-get-github-repo-url) "/blob/master/" ( file-name-nondirectory(buffer-file-name) ))))
