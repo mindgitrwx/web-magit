@@ -1,11 +1,12 @@
 (defun my-get-github-repo-url ()
-  (let* ((git-dir-p (vc-git-root (buffer-file-name)))
-         (git-url (vc-git--run-command-string
-                   git-dir-p "config" "--get" "remote.origin.url"))
-         (git-url (replace-regexp-in-string "\n$" "" git-url))
+  (interactive)
+  (let* ((git-url (shell-command-to-string "git remote -v | grep origin | awk '{print $2}' | head -n1"))
+         (git-url (string-trim git-url))
+         (message (format "git-url: %s" git-url))
          (web-url (replace-regexp-in-string
                    "\\.git$" "" (replace-regexp-in-string
-                                 "^git@github.com:" "https://github.com/" git-url))))
+                                 "^git@github.com:" "https://github.com/" git-url)))
+         (message (format "web-url: %s" web-url)))
     web-url))
 
 (defun my-open-github-repo ()
