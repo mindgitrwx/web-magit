@@ -29,7 +29,7 @@
   (interactive)
   (browse-url (concat (my-get-github-repo-url) "/blob/master/" ( file-name-nondirectory(buffer-file-name) ))))
 
-(defun my-create-github-repo (repo-name &optional username token)
+(defun create-github-repo (repo-name &optional username token)
   "Create a new repository on GitHub with the given REPO-NAME.
 
 Optionally, specify a USERNAME and TOKEN to use for authentication. If not
@@ -40,5 +40,15 @@ provided, the user will be prompted to enter them."
   (unless token
     (setq token (read-passwd "GitHub personal access token: ")))
   (let ((url (format "https://api.github.com/user/repos -u %s:%s" username token)))
-    (call-process-shell-command (format "curl -d '{\"name\":\"%s\"}' %s" repo-name url))))
+    (call-process-shell-command (format "curl -d '{\"name\":\"%s\"}' %s" repo-name url)))
+
+  (sleep-for 1)
+  (call-process-shell-command (format "take %s" repo-name))
+  (call-process-shell-command (format "echo \"# %s\" >> README.md" repo-name))
+  (call-process-shell-command "git init")
+  (call-process-shell-command "git add README.md")
+  (call-process-shell-command (format "git commit -m \"Initial commit\""))
+  (call-process-shell-command "git branch -M main")
+  (call-process-shell-command (format "git remote add origin https://github.com/%s/%s.git" username repo-name))
+  (call-process-shell-command "git push -u origin main"))
 
