@@ -1,4 +1,4 @@
-(defun my-get-github-repo-url ()
+(defun get-github-repo-url ()
   "Get the URL of the current GitHub repository in the current buffer."
   (interactive)
   (let* ((git-url (shell-command-to-string "git remote -v | grep origin | awk '{print $2}' | head -n1"))
@@ -10,30 +10,30 @@
          (message (format "web-url: %s" web-url)))
     web-url))
 
-(defun my-open-github-repo ()
+(defun open-github-repo ()
   "Open the current Github repository on browser"
   (interactive)
-  (browse-url (my-get-github-repo-url)))
+  (browse-url (get-github-repo-url)))
 
-(defun my-open-github-repo-issues ()
+(defun open-github-repo-issues ()
   "Open the current Github issue on browser"
   (interactive)
-  (browse-url (concat (my-get-github-repo-url) "/issues")))
+  (browse-url (concat (get-github-repo-url) "/issues")))
 
-(defun my-open-github-repo-pull-requests ()
+(defun open-github-repo-pull-requests ()
   "Open the current Github pull-requests on browser"
   (interactive)
-  (browse-url (concat (my-get-github-repo-url) "/pulls")))
+  (browse-url (concat (get-github-repo-url) "/pulls")))
 
-(defun my-open-github-repo-actions ()
+(defun open-github-repo-actions ()
   "Open the current Github actions on browser"
   (interactive)
-  (browse-url (concat (my-get-github-repo-url) "/actions")))
+  (browse-url (concat (get-github-repo-url) "/actions")))
 
-(defun my-open-github-repo-file ()
+(defun open-github-repo-file ()
   "Open the current Github files on browser"
   (interactive)
-  (browse-url (concat (my-get-github-repo-url) "/blob/master/" ( file-name-nondirectory(buffer-file-name) ))))
+  (browse-url (concat (get-github-repo-url) "/blob/master/" (file-name-nondirectory(buffer-file-name)))))
 
 (defun create-github-repo (repo-name &optional username token)
   "Create a new repository on GitHub with the given REPO-NAME.
