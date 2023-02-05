@@ -49,7 +49,8 @@ provided, the user will be prompted to enter them."
     (call-process-shell-command (format "curl -d '{\"name\":\"%s\"}' %s" repo-name url)))
 
   (sleep-for 1)
-  (call-process-shell-command (format "take %s" repo-name))
+  (call-process-shell-command (format "mkdir %s" repo-name))
+  (call-process-shell-command (format "cd %s" repo-name))
   (call-process-shell-command (format "echo \"# %s\" >> README.md" repo-name))
   (call-process-shell-command "git init")
   (call-process-shell-command "git add README.md")
