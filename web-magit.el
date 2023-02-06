@@ -40,6 +40,11 @@
   (interactive)
   (browse-url (concat (get-github-repo-url) "/blob/master/" (file-name-nondirectory(buffer-file-name)))))
 
+(defun open-setting-github-token ()
+  "Browse url to setting token"
+  (interactive)
+  (browse-url "https://github.com/settings/tokens"))
+
 (defun create-github-repo (repo-name &optional username token)
   "Create a new repository on GitHub with the given REPO-NAME.
 
