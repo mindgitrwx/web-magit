@@ -69,3 +69,8 @@ provided, the user will be prompted to enter them."
   (call-process-shell-command (format "git remote add origin https://github.com/%s/%s.git" username repo-name))
   (call-process-shell-command "git push -u origin main"))
 
+(defun open-recently-merged-pull-reqeusts()
+  "opne browser and list recently merged pull request from user"
+  (interactive)
+  (let ((username (read-string "Enter your GitHub username: ")))
+    (browse-url (concat "https://github.com/search?q=is%3Apr+is%3Amerged+author%3A" username "+sort%3Aupdated-desc&type=issues"))))
