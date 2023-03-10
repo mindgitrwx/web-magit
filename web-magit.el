@@ -40,10 +40,20 @@
   (interactive)
   (browse-url (concat (get-github-repo-url) "/blob/master/" (file-name-nondirectory(buffer-file-name)))))
 
+(defun open-issue-template ()
+  "Open the issue-template directory; open file if only one exists, else open directory."
+  (interactive)
+  (let* ((root (vc-root-dir))
+         (issue-template-dir (concat root ".github/ISSUE_TEMPLATE/")))
+    (if (eq 1 (length (directory-files issue-template-dir)))
+        (find-file (concat issue-template-dir (car (directory-files issue-template-dir))))
+      (dired issue-template-dir)))))
+
 (defun open-setting-github-token ()
   "Browse url to setting token"
   (interactive)
   (browse-url "https://github.com/settings/tokens"))
+
 
 (defun create-github-repo (repo-name &optional username token)
   "Create a new repository on GitHub with the given REPO-NAME.
