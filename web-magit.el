@@ -23,7 +23,7 @@
 (defun open-github-repo-issues-by-username (username)
   "Open the current Github issue by username on browser"
   (interactive "sEnter your GitHub username: ")
-  (browse-url (concat (my-get-github-repo-url) "/issues?q=is%3Aissue+author%3A" username)))
+  (browse-url (concat (get-github-repo-url) "/issues?q=is%3Aissue+author%3A" username)))
 
 (defun open-github-repo-pull-requests ()
   "Open the current Github pull-requests on browser"
